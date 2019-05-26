@@ -69,7 +69,7 @@ public class NoiseController {
 
                 int n = random.nextInt(100);
 
-                if (n <= (int) noiseSlider.getValue()) {
+                if (n < (int) noiseSlider.getValue()) {
 
                     if (bipolarNoise.isSelected()) {
 
@@ -95,7 +95,8 @@ public class NoiseController {
         Scene secondScene = new Scene(loader.load());
 
         Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
+        newWindow.setResizable(false);
+        newWindow.setTitle("Фильтры");
         newWindow.setScene(secondScene);
 
         FilterController controller = loader.getController();

@@ -36,7 +36,8 @@ public class Controller {
                 Scene secondScene = new Scene(loader.load());
 
                 Stage newWindow = new Stage();
-                newWindow.setTitle("Second Stage");
+                newWindow.setResizable(false);
+                newWindow.setTitle("Шумы");
                 newWindow.setScene(secondScene);
 
                 NoiseController controller = loader.getController();
