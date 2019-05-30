@@ -27,7 +27,7 @@ public class Controller {
         thread2.run();
     }
 
-    public Task openNoiseView(File file) {
+    private Task openNoiseView(File file) {
         return new Task() {
             @Override
             protected Object call() throws IOException {
@@ -52,7 +52,7 @@ public class Controller {
         };
     }
 
-    public File loadImage() throws Exception {
+    private File loadImage() throws Exception {
 
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(gridPane.getScene().getWindow());

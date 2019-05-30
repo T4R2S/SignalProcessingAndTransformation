@@ -3,17 +3,23 @@ package UI.Controllers;
 import UI.Infrastructure.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 @SuppressWarnings("unused")
 public class FilterController {
@@ -25,12 +31,12 @@ public class FilterController {
     public TextField kernelSizeMN;
     public RadioButton midpoint;
 
-    private Image origin;
+    private WritableImage origin;
     private boolean returnsRedChannel = false;
     private boolean returnsBlueChannel = false;
     private boolean returnsGreenChannel = false;
 
-    public void setImage(Image image) {
+    void setImage(WritableImage image) {
         this.image.setHeight(image.getHeight());
         this.image.setWidth(image.getWidth());
 
@@ -81,24 +87,6 @@ public class FilterController {
             but.setStyle("-fx-background-color: #60a7ffff;");
         else
             but.setStyle("");
-
-//        GraphicsContext gc = this.image.getGraphicsContext2D();
-//
-//        PixelWriter pixelWriter = gc.getPixelWriter();
-//
-//        SnapshotParameters params = new SnapshotParameters();
-//        params.setFill(Color.TRANSPARENT);
-//        WritableImage snapshot = image.snapshot(params, null);
-//
-//        PixelReader pixelReader = snapshot.getPixelReader();
-//
-//        for (int i = 0; i < image.getHeight(); i++) {
-//            for (int j = 0; j < image.getWidth(); j++) {
-//
-//                Color color = pixelReader.getColor(i, j);
-//                pixelWriter.setColor(i, j, new Color(0, 0, color.getBlue(), 1.0));
-//            }
-//        }
     }
 
     public void clearFilterHandler(ActionEvent actionEvent) {
@@ -127,5 +115,26 @@ public class FilterController {
 
         if (geometricMean.isSelected())
             Filters.geometricMean(this.image, n, n, pixelReader, pixelWriter);
+    }
+
+
+    public void openResultsViewHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/resultsView.fxml"));
+        Scene secondScene = new Scene(loader.load());
+
+        Stage newWindow = new Stage();
+        newWindow.setResizable(true);
+        newWindow.setTitle("Результат");
+        newWindow.setScene(secondScene);
+
+        ResultsController controller = loader.getController();
+
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        WritableImage snapshot = image.snapshot(params, null);
+
+        controller.setImage(origin, snapshot, returnsRedChannel, returnsGreenChannel, returnsBlueChannel);
+
+        newWindow.show();
     }
 }
