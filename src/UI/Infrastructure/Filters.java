@@ -35,11 +35,11 @@ public class Filters {
                         double blue = color.getBlue() * 255.0;
 
                         maxRed = Math.max(maxRed, red);
-                        minRed = Math.max(minRed, red);
+                        minRed = Math.min(minRed, red);
                         maxGreen = Math.max(maxGreen, green);
-                        minGreen = Math.max(minGreen, green);
+                        minGreen = Math.min(minGreen, green);
                         maxBlue = Math.max(maxBlue, blue);
-                        minBlue = Math.max(minBlue, blue);
+                        minBlue = Math.min(minBlue, blue);
                     }
                 }
 

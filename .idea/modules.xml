@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SignalProcessingAndTransformation.iml" filepath="$PROJECT_DIR$/.idea/SignalProcessingAndTransformation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpatialImageEnhancementMethods.iml" filepath="$PROJECT_DIR$/.idea/SpatialImageEnhancementMethods.iml" />
     </modules>
   </component>
 </project>
